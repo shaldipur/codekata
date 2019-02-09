@@ -8,5 +8,127 @@
     <artifactId>codekata</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <dependencies>
+
+        <!--Junit Platform-->
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <version>1.4.0</version>
+            <artifactId>junit-platform-commons</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <version>1.4.0</version>
+            <artifactId>junit-platform-console</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <version>1.4.0</version>
+            <artifactId>junit-platform-console-standalone</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <version>1.4.0</version>
+            <artifactId>junit-platform-engine</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <version>1.4.0</version>
+            <artifactId>junit-platform-launcher</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <version>1.4.0</version>
+            <artifactId>junit-platform-reporting</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <version>1.4.0</version>
+            <artifactId>junit-platform-runner</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <version>1.4.0</version>
+            <artifactId>junit-platform-suite-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <version>1.4.0</version>
+            <artifactId>junit-platform-testkit</artifactId>
+        </dependency>
+
+
+        <!--JUnit Jupiter-->
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <version>5.4.0</version>
+            <artifactId>junit-jupiter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <version>5.4.0</version>
+            <artifactId>junit-jupiter-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <version>5.4.0</version>
+            <artifactId>junit-jupiter-engine</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <version>5.4.0</version>
+            <artifactId>junit-jupiter-params</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <version>5.4.0</version>
+            <artifactId>junit-jupiter-migrationsupport</artifactId>
+        </dependency>
+
+        <!--JUnit Vintage-->
+
+        <dependency>
+            <groupId>org.junit.vintage</groupId>
+            <version>5.4.0</version>
+            <artifactId>junit-vintage-engine</artifactId>
+        </dependency>
+
+        <!--Bill of Materials-->
+
+        <dependency>
+            <groupId>org.junit</groupId>
+            <version>5.4.0</version>
+            <artifactId>junit-bom</artifactId>
+        </dependency>
+
+        <!--Dependencies-->
+
+        <dependency>
+            <groupId>org.apiguardian</groupId>
+            <version>1.0.0</version>
+            <artifactId>apiguardian-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.opentest4j</groupId>
+            <version>1.1.1</version>
+            <artifactId>opentest4j</artifactId>
+        </dependency>
+
+
+    </dependencies>
     
 </project>
