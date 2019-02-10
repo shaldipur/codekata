@@ -1,3 +1,6 @@
+import java.time.*;
+
+
 public class Pay {
 
 
@@ -8,7 +11,7 @@ public class Pay {
     }
 
 
-    public void calcTotalPay(int startTime, int endTime, String familyA, String familyB, String familyC)
+    public void calcTotalPay(LocalTime startTime, LocalTime endTime, String familyA, String familyB, String familyC)
     {
 
         boolean timeRange = false;
@@ -20,7 +23,7 @@ public class Pay {
 
         // Verify that start and end times are followed
         // Verify that end time is not before start time
-        timeRange = bs.verifyTimeRange();
+        timeRange = bs.verifyTimeRange(startTime, endTime);
 
         // Verify number of families babysat
         numFamiliesBabysat = bs.verifyNumFamiliesBabysat(familyA, familyB, familyC);

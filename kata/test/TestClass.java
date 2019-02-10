@@ -1,11 +1,16 @@
 import org.junit.Before;
 import org.junit.Test;
 import static junit.framework.TestCase.assertEquals;
+import java.time.*;
+
 
 public class TestClass {
 
     Pay pay;
     Babysitter bs;
+
+    LocalTime startTime = LocalTime.of(17,00);
+    LocalTime endTime = LocalTime.of(4,00);
 
     @Before
     public void setUp()
@@ -16,11 +21,25 @@ public class TestClass {
 
     }
 
+
     @Test
-    public void numberOfFamiliesBabySatReturnOne()
+    public void verifyTimeRangeReturnsTrue()
     {
-        assertEquals(true, bs.verifyNumFamiliesBabysat("familyA", "", ""));
+        assertEquals(true,bs.verifyTimeRange(startTime,endTime));
     }
+
+
+//    @Test
+//    public void verifyFamiliesBabySatReturnTrue()
+//    {
+//        assertEquals(true, bs.verifyNumFamiliesBabysat("familyA", "", ""));
+//    }
+//
+//    @Test
+//    public void verifyPayForFullHoursReturnsTrue()
+//    {
+//        assertEquals(true, bs.verifyPayForFullHours());
+//    }
 
 
 

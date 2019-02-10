@@ -1,12 +1,17 @@
-import java.util.Date;
+import java.time.*;
+
+
 
 public class Execution {
 
     public static void main(String[]args)
     {
-        int startTime = 5;
+        //int startTime = 5;
+        //int endTime = 11;
 
-        int endTime = 11;
+        LocalTime startTime = LocalTime.of(17,00);
+        LocalTime endTime = LocalTime.of(4,00);
+
 
         String familyA = "Family A";
         String familyB = "Family B";
