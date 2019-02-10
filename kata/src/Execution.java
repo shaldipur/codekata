@@ -8,13 +8,15 @@ public class Execution {
 
         int endTime = 11;
 
-        String family = "Family A";
+        String familyA = "Family A";
+        String familyB = "Family B";
+        String familyC = "Family C";
 
 
 
         Pay pay = new Pay();
 
-        pay.calcTotalPay(startTime, endTime, family);
+        pay.calcTotalPay(startTime, endTime, familyA, "", "");
 
     }
 }

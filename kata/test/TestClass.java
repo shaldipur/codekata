@@ -5,19 +5,21 @@ import static junit.framework.TestCase.assertEquals;
 public class TestClass {
 
     Pay pay;
-
+    Babysitter bs;
 
     @Before
     public void setUp()
     {
+
         pay = new Pay();
+        bs = new Babysitter();
 
     }
 
     @Test
     public void numberOfFamiliesBabySatReturnOne()
     {
-        assertEquals("1", pay.familyNumberBabySat(1));
+        assertEquals(true, bs.verifyNumFamiliesBabysat("familyA", "", ""));
     }
 
 
