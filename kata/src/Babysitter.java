@@ -15,6 +15,7 @@ public class Babysitter {
         LocalTime scheduledStartTime = LocalTime.of(17,00);
         LocalTime scheduledEndTime = LocalTime.of(4,00);
 
+
         // Start time flags
         boolean startTimeEqualsScheduledStartTime = false;
         boolean startTimeIsAfterScheduledStartTime = false;
@@ -31,20 +32,20 @@ public class Babysitter {
         startTimeEqualsScheduledStartTime = startTime.equals(scheduledStartTime);
         startTimeIsAfterScheduledStartTime = startTime.isAfter(scheduledStartTime);
 
-        startTimeIsBeforeScheduledEndTime = startTime.isBefore(scheduledEndTime);
+
 
 
         // End time comparisons
         endTimeEqualsScheduledEndTime = endTime.equals(scheduledEndTime);
         endTimeIsBeforeScheduledEndTime = endTime.isBefore(scheduledEndTime);
 
-        endTimeIsAfterScheduledStartTime = endTime.isAfter(scheduledStartTime);
+
 
         //Final time comparisons
 
-        if((startTimeEqualsScheduledStartTime == true  || startTimeIsAfterScheduledStartTime == true) && startTimeIsBeforeScheduledEndTime == true )
+        if(startTimeEqualsScheduledStartTime == true  || startTimeIsAfterScheduledStartTime == true)
         {
-            if((endTimeEqualsScheduledEndTime == true || endTimeIsBeforeScheduledEndTime == true) && endTimeIsAfterScheduledStartTime)
+            if(endTimeEqualsScheduledEndTime == true || endTimeIsBeforeScheduledEndTime == true )
             {
                 timeRangeCorrect = true;
             }

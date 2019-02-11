@@ -29,17 +29,17 @@ public class TestClass {
     }
 
 
-//    @Test
-//    public void verifyFamiliesBabySatReturnTrue()
-//    {
-//        assertEquals(true, bs.verifyNumFamiliesBabysat("familyA", "", ""));
-//    }
-//
-//    @Test
-//    public void verifyPayForFullHoursReturnsTrue()
-//    {
-//        assertEquals(true, bs.verifyPayForFullHours());
-//    }
+    @Test
+    public void verifyFamiliesBabySatReturnTrue()
+    {
+        assertEquals(true, bs.verifyNumFamiliesBabysat("familyA", "", ""));
+    }
+
+    @Test
+    public void verifyPayForFullHoursReturnsTrue()
+    {
+        assertEquals(true, bs.verifyPayForFullHours());
+    }
 
 
 
