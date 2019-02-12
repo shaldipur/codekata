@@ -8,6 +8,7 @@ public class TestClass {
 
     Pay pay;
     Babysitter bs;
+    Job j;
 
     LocalTime startTime = LocalTime.of(17,00);
     LocalTime endTime = LocalTime.of(4,00);
@@ -18,6 +19,7 @@ public class TestClass {
 
         pay = new Pay();
         bs = new Babysitter();
+        j = new Job();
 
     }
 
@@ -38,7 +40,7 @@ public class TestClass {
     @Test
     public void verifyPayForFullHoursReturnsTrue()
     {
-        assertEquals(true, bs.verifyPayForFullHours());
+        assertEquals(true, j.verifyPayForFullHours("familyA"));
     }
 
 

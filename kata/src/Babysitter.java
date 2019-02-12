@@ -4,8 +4,8 @@ import java.time.*;
 
 public class Babysitter {
 
-    ArrayList<String> collectFamilies = new ArrayList<String>();
-    ArrayList<String> numFamilies = new ArrayList<String>();
+    ArrayList<String> familiesCollection = new ArrayList<String>();
+    ArrayList<String> numFamiliesCollection = new ArrayList<String>();
 
     public boolean verifyTimeRange(LocalTime startTime, LocalTime endTime)
     {
@@ -19,21 +19,18 @@ public class Babysitter {
         // Start time flags
         boolean startTimeEqualsScheduledStartTime = false;
         boolean startTimeIsAfterScheduledStartTime = false;
-        boolean startTimeIsBeforeScheduledEndTime = false;
+
 
 
         // End time flags
         boolean endTimeEqualsScheduledEndTime = false;
         boolean endTimeIsBeforeScheduledEndTime = false;
-        boolean endTimeIsAfterScheduledStartTime = false;
+
 
 
         // Start time comparisons
         startTimeEqualsScheduledStartTime = startTime.equals(scheduledStartTime);
         startTimeIsAfterScheduledStartTime = startTime.isAfter(scheduledStartTime);
-
-
-
 
         // End time comparisons
         endTimeEqualsScheduledEndTime = endTime.equals(scheduledEndTime);
@@ -42,14 +39,10 @@ public class Babysitter {
 
 
         //Final time comparisons
-
-        if(startTimeEqualsScheduledStartTime == true  || startTimeIsAfterScheduledStartTime == true)
+        if((startTimeEqualsScheduledStartTime || startTimeIsAfterScheduledStartTime)
+              && (endTimeEqualsScheduledEndTime || endTimeIsBeforeScheduledEndTime))
         {
-            if(endTimeEqualsScheduledEndTime == true || endTimeIsBeforeScheduledEndTime == true )
-            {
-                timeRangeCorrect = true;
-            }
-
+            timeRangeCorrect = true;
         }
 
 
@@ -62,26 +55,26 @@ public class Babysitter {
 
 
         // Get count of the families
-        collectFamilies.add(familyA);
-        collectFamilies.add(familyB);
-        collectFamilies.add(familyC);
+        familiesCollection.add(familyA);
+        familiesCollection.add(familyB);
+        familiesCollection.add(familyC);
 
         // Loop thru array list and remove any null family values
 
         // Empty family values represent families that are not being babysat for
         // because the babysitter can only babysit for one family per night
 
-        for(String family: collectFamilies)
+        for(String family: familiesCollection)
         {
 
             if (!family.equals(""))
             {
-                numFamilies.add(family);
+                numFamiliesCollection.add(family);
             }
 
         }
 
-        if(numFamilies.size() == 1)
+        if(numFamiliesCollection.size() == 1)
         {
             numFamiliesBabysat = true;
         }
@@ -89,12 +82,4 @@ public class Babysitter {
         return numFamiliesBabysat;
     }
 
-    public boolean verifyPayForFullHours()
-    {
-        boolean payForFullHours = false;
-
-
-
-        return payForFullHours;
-    }
 }
