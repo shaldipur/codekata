@@ -13,7 +13,6 @@ public class Pay {
 
         ArrayList<String> familiesCollection = new ArrayList<String>();
 
-        // Get count of the families
         familiesCollection.add(familyA);
         familiesCollection.add(familyB);
         familiesCollection.add(familyC);
@@ -26,23 +25,36 @@ public class Pay {
         timeRangeIsCorrect = bs.verifyTimeRange(startTime, endTime);
 
         // Verify number of families babysat (should only be one family at a time)
-        numFamiliesBabysatIsOne = bs.verifyNumFamiliesBabysat(familyA, familyB, familyC);
+        numFamiliesBabysatIsOne = bs.verifyNumFamiliesBabysat(familiesCollection);
 
-        // Verify that babysitter gets paid for full hours (no fractional hours)
+        // If timeRangeIsCorrect flag and numFamiliesBabysatIsOn flag
+        // both return true then execute the code in the if block
 
         if(timeRangeIsCorrect && numFamiliesBabysatIsOne)
         {
             for(String family: familiesCollection)
             {
-
                 if (!family.equals(""))
                 {
+                    // Verify that babysitter gets paid for full hours (no fractional hours)
                     payForFullHours = j.verifyPayForFullHours(family);
                 }
 
             }
 
         }
+
+        // If payForFullHours flag returns true, then calculate the total pay based on
+        // based on the family, the time ranges specified and the number of hours worked
+
+        // Family A pays $15 per hour before 11pm, and $20 per hour the rest of the night
+
+
+        // Family B pays $12 per hour before 10pm, $8 between 10 and 12, and $16 the rest of the night
+
+
+        // Family C pays $21 per hour before 9pm, then $15 the rest of the night
+
 
     }
 

@@ -2,6 +2,7 @@ import org.junit.Before;
 import org.junit.Test;
 import static junit.framework.TestCase.assertEquals;
 import java.time.*;
+import java.util.ArrayList;
 
 
 public class TestClass {
@@ -12,6 +13,13 @@ public class TestClass {
 
     LocalTime startTime = LocalTime.of(17,00);
     LocalTime endTime = LocalTime.of(4,00);
+
+    ArrayList familiesCollection = new ArrayList();
+
+    String familyA = "Family A";
+    String familyB = "Family B";
+    String familyC = "Family C";
+
 
     @Before
     public void setUp()
@@ -34,13 +42,17 @@ public class TestClass {
     @Test
     public void verifyFamiliesBabySatReturnTrue()
     {
-        assertEquals(true, bs.verifyNumFamiliesBabysat("familyA", "", ""));
+        familiesCollection.add(familyA);
+        familiesCollection.add(familyB);
+        familiesCollection.add(familyC);
+
+        assertEquals(true, bs.verifyNumFamiliesBabysat(familiesCollection));
     }
 
     @Test
     public void verifyPayForFullHoursReturnsTrue()
     {
-        assertEquals(true, j.verifyPayForFullHours("familyA"));
+        assertEquals(true, j.verifyPayForFullHours(familyA));
     }
 
 
