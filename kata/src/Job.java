@@ -15,10 +15,10 @@ public class Job
         return payForFullHours;
     }
 
-    public int calculateHours(LocalTime startTime, LocalTime endTime)
+    public int calculateHours(LocalTime startTime, LocalTime endTime, int hours)
     {
 
-        int hours = 0;
+
 
 
 

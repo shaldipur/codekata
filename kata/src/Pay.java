@@ -78,8 +78,10 @@ public class Pay {
     public void calculateHoursAndPay(LocalTime startTime, LocalTime endTime, String family, int hrs, boolean payForFullHours, Job j)
     {
 
+         int hours;
+
         //Calculate the number of hours between the start time and end time
-        hrs = j.calculateHours(startTime, endTime);
+        hours = j.calculateHours(startTime, endTime, hrs);
 
         // Verify that babysitter gets paid for full hours (no fractional hours)
         payForFullHours = j.verifyPayForFullHours(family);
@@ -87,7 +89,7 @@ public class Pay {
         // If the babysitter is getting paid for the full hours then proceed to calculate final pay
         if(payForFullHours)
         {
-            j.calculateFinalPay(hrs, startTime, endTime);
+            j.calculateFinalPay(hours, startTime, endTime);
         }
     }
 
