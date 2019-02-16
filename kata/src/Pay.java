@@ -36,24 +36,67 @@ public class Pay {
             {
                 if (!family.equals(""))
                 {
-                    // Verify that babysitter gets paid for full hours (no fractional hours)
-                    payForFullHours = j.verifyPayForFullHours(family);
+
+                    int familyCase = 0;
+
+                    //Determine which family it is (A, B, or C)
+                    switch(familyCase){
+                        case 1:
+                            family.equals("Family A");
+
+                            //Determine the amount paid by the family based on the time range
+
+                            //between 5pm and 11pm: $15/hr
+                            //between 11pm and 4am: $20/hr
+
+                            // Verify that babysitter gets paid for full hours (no fractional hours)
+                            payForFullHours = j.verifyPayForFullHours(family);
+
+
+                            break;
+                        case 2:
+                            family.equals(("Family B"));
+
+                            //Determine the amount paid by the family based on the time range
+
+                            //between 5pm and 10pm: $12/hr
+                            //between 10pm and 12am: $8/hr
+                            //between 12am and 4am: $16/hr
+
+
+                            // Verify that babysitter gets paid for full hours (no fractional hours)
+                            payForFullHours = j.verifyPayForFullHours(family);
+
+                            break;
+
+                        case 3:
+                            family.equals(("Family C"));
+
+                            //Determine the amount paid by the family based on the time range
+                            //between 5pm and 9pm: $21/hr
+                            //between 9pm and 4am: $15/hr
+
+
+                            // Verify that babysitter gets paid for full hours (no fractional hours)
+                            payForFullHours = j.verifyPayForFullHours(family);
+
+                            break;
+                        default:
+                            family.equals("");
+                            break;
+
+                    }
+
+
+
+
+
                 }
 
             }
 
         }
 
-        // If payForFullHours flag returns true, then calculate the total pay based on
-        // based on the family, the time ranges specified and the number of hours worked
-
-        // Family A pays $15 per hour before 11pm, and $20 per hour the rest of the night
-
-
-        // Family B pays $12 per hour before 10pm, $8 between 10 and 12, and $16 the rest of the night
-
-
-        // Family C pays $21 per hour before 9pm, then $15 the rest of the night
 
 
     }
