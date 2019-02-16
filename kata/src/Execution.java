@@ -21,7 +21,7 @@ public class Execution {
 
         Pay pay = new Pay();
 
-        pay.calcTotalPay(startTime, endTime, familyA, "", "");
+        pay.calculationProcess(startTime, endTime, familyA, "", "");
 
     }
 }

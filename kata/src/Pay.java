@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Pay {
 
-    public void calcTotalPay(LocalTime startTime, LocalTime endTime, String familyA, String familyB, String familyC)
+    public void calculationProcess(LocalTime startTime, LocalTime endTime, String familyA, String familyB, String familyC)
     {
 
         boolean timeRangeIsCorrect = false;
@@ -38,47 +38,27 @@ public class Pay {
                 {
 
                     int familyCase = 0;
+                    int hrs = 0;
 
                     //Determine which family it is (A, B, or C)
                     switch(familyCase){
                         case 1:
                             family.equals("Family A");
 
-                            //Determine the amount paid by the family based on the time range
-
-                            //between 5pm and 11pm: $15/hr
-                            //between 11pm and 4am: $20/hr
-
-                            // Verify that babysitter gets paid for full hours (no fractional hours)
-                            payForFullHours = j.verifyPayForFullHours(family);
-
+                            calculateHoursAndPay(startTime,endTime,family,hrs, payForFullHours, j);
 
                             break;
                         case 2:
                             family.equals(("Family B"));
 
-                            //Determine the amount paid by the family based on the time range
-
-                            //between 5pm and 10pm: $12/hr
-                            //between 10pm and 12am: $8/hr
-                            //between 12am and 4am: $16/hr
-
-
-                            // Verify that babysitter gets paid for full hours (no fractional hours)
-                            payForFullHours = j.verifyPayForFullHours(family);
+                            calculateHoursAndPay(startTime,endTime,family,hrs, payForFullHours, j);
 
                             break;
 
                         case 3:
                             family.equals(("Family C"));
 
-                            //Determine the amount paid by the family based on the time range
-                            //between 5pm and 9pm: $21/hr
-                            //between 9pm and 4am: $15/hr
-
-
-                            // Verify that babysitter gets paid for full hours (no fractional hours)
-                            payForFullHours = j.verifyPayForFullHours(family);
+                            calculateHoursAndPay(startTime,endTime,family,hrs, payForFullHours, j);
 
                             break;
                         default:
@@ -87,20 +67,28 @@ public class Pay {
 
                     }
 
-
-
-
-
                 }
 
             }
 
         }
 
-
-
     }
 
+    public void calculateHoursAndPay(LocalTime startTime, LocalTime endTime, String family, int hrs, boolean payForFullHours, Job j)
+    {
 
+        //Calculate the number of hours between the start time and end time
+        hrs = j.calculateHours(startTime, endTime);
+
+        // Verify that babysitter gets paid for full hours (no fractional hours)
+        payForFullHours = j.verifyPayForFullHours(family);
+
+        // If the babysitter is getting paid for the full hours then proceed to calculate final pay
+        if(payForFullHours)
+        {
+            j.calculateFinalPay(hrs, startTime, endTime);
+        }
+    }
 
 }
