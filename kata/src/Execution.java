@@ -1,5 +1,5 @@
 import java.time.*;
-
+import java.util.ArrayList;
 
 
 public class Execution {
@@ -13,15 +13,22 @@ public class Execution {
         LocalTime endTime = LocalTime.of(4,00);
 
 
+        ArrayList<String> familiesCollection = new ArrayList<String>();
+
         String familyA = "Family A";
         String familyB = "Family B";
         String familyC = "Family C";
 
+        familiesCollection.add(familyA);
+        familiesCollection.add(familyB);
+        familiesCollection.add(familyC);
+
+        //...any number of families can be added to collection
 
 
         Pay pay = new Pay();
 
-        pay.calculationProcess(startTime, endTime, familyA, "", "");
+        pay.calculationProcess(startTime, endTime, familiesCollection);
 
     }
 }

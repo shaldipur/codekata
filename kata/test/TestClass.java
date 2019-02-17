@@ -58,7 +58,7 @@ public class TestClass {
         assertEquals(true, bs.verifyNumFamiliesBabysat(familiesCollection));
     }
 
-    //calculate hours
+
 
     @Test
     public void verifyPayForFullHoursReturnsTrue()
@@ -67,7 +67,7 @@ public class TestClass {
     }
 
 
-    //calculate final pay
+
 
 
 

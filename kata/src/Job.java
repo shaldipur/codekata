@@ -8,15 +8,16 @@ public class Job
     public long calculateHours(LocalTime startTime, LocalTime endTime)
     {
 
-        //Calculate the number of hours between the start time and end time
-        Duration duration = Duration.between(startTime,endTime);
+        // Calculate the number of hours between the endTime and startTime (4 am to 5 pm)
+        Duration duration = Duration.between(endTime,startTime);
 
         long seconds = duration.getSeconds();
 
-        //Convert seconds to hours
-        long hours = TimeUnit.SECONDS
-                .toHours(seconds);
+        // Convert seconds to hours
+        long hours = TimeUnit.SECONDS.toHours(seconds);
 
+        // Subtract 2 hours to get the hours between 5 pm and 4 am
+        hours = hours - 2;
 
        return hours;
 

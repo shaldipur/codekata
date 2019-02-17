@@ -10,14 +10,8 @@ public class Pay {
     private boolean numFamiliesBabysatIsOne;
     private boolean payForFullHours;
 
-    public void calculationProcess(LocalTime startTime, LocalTime endTime, String familyA, String familyB, String familyC)
+    public void calculationProcess(LocalTime startTime, LocalTime endTime, ArrayList<String> familiesCollection)
     {
-
-        ArrayList<String> familiesCollection = new ArrayList<String>();
-
-        familiesCollection.add(familyA);
-        familiesCollection.add(familyB);
-        familiesCollection.add(familyC);
 
         Babysitter bs = new Babysitter();
         Job j = new Job();
@@ -34,25 +28,22 @@ public class Pay {
 
         if(timeRangeIsCorrect && numFamiliesBabysatIsOne)
         {
-            for(String family: familiesCollection)
+            // Get the family that is paying the babysitter
+            String family = familiesCollection.get(0);
+
+            // Calculate time difference between start time and end time
+            long hours = j.calculateHours(startTime,endTime);
+
+            // Verify that babysitter gets paid for full hours (no fractional hours)
+            payForFullHours = j.verifyPayForFullHours(hours);
+
+            // If the babysitter is getting paid for the full hours then proceed to calculate final pay
+            if(payForFullHours)
             {
-                if (!family.equals(""))
-                {
-                    // Calculate time difference between start time and end time
-                    long hours = j.calculateHours(startTime,endTime);
+              int finalPay =  j.calculateFinalPay(hours, startTime, endTime, family);
 
-                    // Verify that babysitter gets paid for full hours (no fractional hours)
-                    payForFullHours = j.verifyPayForFullHours(hours);
+              System.out.print("The final pay is $ " + Integer.toString(finalPay) + " for " + family + "." );
 
-                    // If the babysitter is getting paid for the full hours then proceed to calculate final pay
-                    if(payForFullHours)
-                    {
-                      int finalPay =  j.calculateFinalPay(hours, startTime, endTime, family);
-
-                      System.out.print("The final pay is $ " + Integer.toString(finalPay) + " for " + family + "." );
-
-                    }
-                }
             }
         }
     }
