@@ -68,6 +68,7 @@ public class Job
 
                 // Family A
 
+                //TODO: Break out into function
                 // Preload hours: Between 5pm and 11pm: $15/hr
 
                 familyPayHours.add(LocalTime.of(17,00));
