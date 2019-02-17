@@ -1,19 +1,24 @@
-import java.time.LocalTime;
+import java.time.*;
+import java.util.concurrent.TimeUnit;
 
 public class Job
 {
 
 
-    public int calculateHours(LocalTime startTime, LocalTime endTime, int hours)
+    public long calculateHours(LocalTime startTime, LocalTime endTime)
     {
 
+        //Calculate the number of hours between the start time and end time
+        Duration duration = Duration.between(startTime,endTime);
+
+        long seconds = duration.getSeconds();
+
+        //Convert seconds to hours
+        long hours = TimeUnit.SECONDS
+                .toHours(seconds);
 
 
-
-
-
-
-        return hours;
+       return hours;
 
     }
 
@@ -32,7 +37,7 @@ public class Job
 
 
 
-    public int calculateFinalPay(int hrs, LocalTime startTime, LocalTime endTime, String family)
+    public int calculateFinalPay(long hours, LocalTime startTime, LocalTime endTime, String family)
     {
         int finalPay = 0;
         int familyCase = 0;

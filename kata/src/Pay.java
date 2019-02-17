@@ -1,5 +1,7 @@
 import java.time.*;
+import java.util.concurrent.TimeUnit;
 import java.util.ArrayList;
+import java.lang.Math;
 
 
 public class Pay {
@@ -36,10 +38,8 @@ public class Pay {
             {
                 if (!family.equals(""))
                 {
-                    int hrs = 0;
-
-                    //Calculate the number of hours between the start time and end time
-                    hrs = j.calculateHours(startTime, endTime, hrs);
+                    // Calculate time difference between start time and end time
+                    long hours = j.calculateHours(startTime,endTime);
 
                     // Verify that babysitter gets paid for full hours (no fractional hours)
                     payForFullHours = j.verifyPayForFullHours(family);
@@ -47,7 +47,7 @@ public class Pay {
                     // If the babysitter is getting paid for the full hours then proceed to calculate final pay
                     if(payForFullHours)
                     {
-                      int finalPay =  j.calculateFinalPay(hrs, startTime, endTime, family);
+                      int finalPay =  j.calculateFinalPay(hours, startTime, endTime, family);
 
                       System.out.print("The final pay is $ " + Integer.toString(finalPay) + " for " + family + "." );
 
