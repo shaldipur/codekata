@@ -110,7 +110,9 @@ public class Job
                             }
                         }
                         // $20 pay scale
-                        //else if
+                        else if(){
+
+                        }
                     }
 
                 }
