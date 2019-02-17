@@ -4,6 +4,14 @@ import java.time.*;
 
 public class Babysitter {
 
+    // Start time flags
+    private boolean startTimeEqualsScheduledStartTime;
+    private boolean startTimeIsAfterScheduledStartTime;
+
+    // End time flags
+    private boolean endTimeEqualsScheduledEndTime;
+    private boolean endTimeIsBeforeScheduledEndTime ;
+
     public boolean verifyTimeRange(LocalTime startTime, LocalTime endTime)
     {
         boolean timeRangeCorrect = false;
@@ -11,19 +19,6 @@ public class Babysitter {
         // Scheduled start time and scheduled end time
         LocalTime scheduledStartTime = LocalTime.of(17,00);
         LocalTime scheduledEndTime = LocalTime.of(4,00);
-
-
-        // Start time flags
-        boolean startTimeEqualsScheduledStartTime = false;
-        boolean startTimeIsAfterScheduledStartTime = false;
-
-
-
-        // End time flags
-        boolean endTimeEqualsScheduledEndTime = false;
-        boolean endTimeIsBeforeScheduledEndTime = false;
-
-
 
         // Start time comparisons
         startTimeEqualsScheduledStartTime = startTime.equals(scheduledStartTime);
@@ -33,8 +28,6 @@ public class Babysitter {
         endTimeEqualsScheduledEndTime = endTime.equals(scheduledEndTime);
         endTimeIsBeforeScheduledEndTime = endTime.isBefore(scheduledEndTime);
 
-
-
         //Final time comparisons
         if((startTimeEqualsScheduledStartTime || startTimeIsAfterScheduledStartTime)
               && (endTimeEqualsScheduledEndTime || endTimeIsBeforeScheduledEndTime))
@@ -42,14 +35,12 @@ public class Babysitter {
             timeRangeCorrect = true;
         }
 
-
         return timeRangeCorrect;
     }
 
     public boolean verifyNumFamiliesBabysat(ArrayList<String> familiesCollection)
     {
         boolean numFamiliesBabysat = false;
-
 
         // Empty family values represent families that are not being babysat for
         // because the babysitter can only babysit for one family per night

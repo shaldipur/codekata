@@ -4,12 +4,12 @@ import java.util.ArrayList;
 
 public class Pay {
 
+    private boolean timeRangeIsCorrect;
+    private boolean numFamiliesBabysatIsOne;
+    private boolean payForFullHours;
+
     public void calculationProcess(LocalTime startTime, LocalTime endTime, String familyA, String familyB, String familyC)
     {
-
-        boolean timeRangeIsCorrect = false;
-        boolean numFamiliesBabysatIsOne = false;
-        boolean payForFullHours = false;
 
         ArrayList<String> familiesCollection = new ArrayList<String>();
 
@@ -36,60 +36,24 @@ public class Pay {
             {
                 if (!family.equals(""))
                 {
-
-                    int familyCase = 0;
                     int hrs = 0;
 
-                    //Determine which family it is (A, B, or C)
-                    switch(familyCase){
-                        case 1:
-                            family.equals("Family A");
+                    //Calculate the number of hours between the start time and end time
+                    hrs = j.calculateHours(startTime, endTime, hrs);
 
-                            calculateHoursAndPay(startTime,endTime,family,hrs, payForFullHours, j);
+                    // Verify that babysitter gets paid for full hours (no fractional hours)
+                    payForFullHours = j.verifyPayForFullHours(family);
 
-                            break;
-                        case 2:
-                            family.equals(("Family B"));
+                    // If the babysitter is getting paid for the full hours then proceed to calculate final pay
+                    if(payForFullHours)
+                    {
+                      int finalPay =  j.calculateFinalPay(hrs, startTime, endTime, family);
 
-                            calculateHoursAndPay(startTime,endTime,family,hrs, payForFullHours, j);
-
-                            break;
-
-                        case 3:
-                            family.equals(("Family C"));
-
-                            calculateHoursAndPay(startTime,endTime,family,hrs, payForFullHours, j);
-
-                            break;
-                        default:
-                            family.equals("");
-                            break;
+                      System.out.print("The final pay is $ " + Integer.toString(finalPay) + " for " + family + "." );
 
                     }
-
                 }
-
             }
-
-        }
-
-    }
-
-    public void calculateHoursAndPay(LocalTime startTime, LocalTime endTime, String family, int hrs, boolean payForFullHours, Job j)
-    {
-
-         int hours;
-
-        //Calculate the number of hours between the start time and end time
-        hours = j.calculateHours(startTime, endTime, hrs);
-
-        // Verify that babysitter gets paid for full hours (no fractional hours)
-        payForFullHours = j.verifyPayForFullHours(family);
-
-        // If the babysitter is getting paid for the full hours then proceed to calculate final pay
-        if(payForFullHours)
-        {
-            j.calculateFinalPay(hours, startTime, endTime);
         }
     }
 
