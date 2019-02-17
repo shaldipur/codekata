@@ -5,34 +5,37 @@ public class Job
 {
 
 
-    public long calculateHours(LocalTime startTime, LocalTime endTime)
+    public double calculateHours(LocalTime startTime, LocalTime endTime)
     {
 
-        // Calculate the number of hours between the endTime and startTime (4 am to 5 pm)
+        // Calculate the number of hours between the endTime and startTime
         Duration duration = Duration.between(endTime,startTime);
 
-        long seconds = duration.getSeconds();
+        double seconds = duration.getSeconds();
+
+        double hours = seconds/(3600);
+
+        double remainingHours = hours - 2;
 
         // Convert seconds to hours
-        long hours = TimeUnit.SECONDS.toHours(seconds);
+        //long hours = TimeUnit.SECONDS.toHours(seconds);
 
-        // Subtract 2 hours to get the hours between 5 pm and 4 am
-        hours = hours - 2;
+        // Subtract 2 hours to get the remaining hours between startTime and endTime
+        //hours = hours - 2;
 
-       return hours;
+       return remainingHours;
 
     }
 
 
-    public boolean verifyPayForFullHours(long hours)
+    public boolean verifyPayForFullHours(double hours)
     {
         boolean payForFullHours = false;
 
-        // There is no remainder then set payForFullHours to true
-//        if(){
-//            payForFullHours = true;
-//        }
 
+        if (hours- Math.floor(hours) == 0){
+            payForFullHours = true;
+        }
 
 
         return payForFullHours;
@@ -40,7 +43,7 @@ public class Job
 
 
 
-    public int calculateFinalPay(long hours, LocalTime startTime, LocalTime endTime, String family)
+    public int calculateFinalPay(double hours, LocalTime startTime, LocalTime endTime, String family)
     {
         int finalPay = 0;
         int familyCase = 0;
@@ -55,6 +58,8 @@ public class Job
                 //Family A
                 //between 5pm and 11pm: $15/hr
                 //between 11pm and 4am: $20/hr
+
+
 
 
                 break;

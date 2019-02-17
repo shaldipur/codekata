@@ -32,7 +32,7 @@ public class Pay {
             String family = familiesCollection.get(0);
 
             // Calculate time difference between start time and end time
-            long hours = j.calculateHours(startTime,endTime);
+            double hours = j.calculateHours(startTime,endTime);
 
             // Verify that babysitter gets paid for full hours (no fractional hours)
             payForFullHours = j.verifyPayForFullHours(hours);
