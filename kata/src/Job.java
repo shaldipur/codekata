@@ -3,17 +3,6 @@ import java.time.LocalTime;
 public class Job
 {
 
-    public boolean verifyPayForFullHours(String family)
-    {
-        boolean payForFullHours = false;
-
-
-
-
-
-
-        return payForFullHours;
-    }
 
     public int calculateHours(LocalTime startTime, LocalTime endTime, int hours)
     {
@@ -28,50 +17,65 @@ public class Job
 
     }
 
+
+    public boolean verifyPayForFullHours(String family)
+    {
+        boolean payForFullHours = false;
+
+
+
+
+
+
+        return payForFullHours;
+    }
+
+
+
     public int calculateFinalPay(int hrs, LocalTime startTime, LocalTime endTime, String family)
     {
         int finalPay = 0;
         int familyCase = 0;
 
         //Determine which family it is (A, B, or C)
-                    switch(familyCase){
-                        case 1:
-                            family.equals("Family A");
+        switch(familyCase){
+            case 1:
+                family.equals("Family A");
 
-                            //Determine the amount paid by the family based on the time range
+                //Determine the amount paid by the family based on the time range
 
-                            //Family A
-                            //between 5pm and 11pm: $15/hr
-                            //between 11pm and 4am: $20/hr
-
-
-                            break;
-                        case 2:
-                            family.equals(("Family B"));
-                            // Family B
-
-                            //between 5pm and 10pm: $12/hr
-                            //between 10pm and 12am: $8/hr
-                            //between 12am and 4am: $16/hr
+                //Family A
+                //between 5pm and 11pm: $15/hr
+                //between 11pm and 4am: $20/hr
 
 
-                            break;
+                break;
+            case 2:
+                family.equals(("Family B"));
+                // Family B
 
-                        case 3:
-                            family.equals(("Family C"));
-
-                            //Family C
-
-                            //between 5pm and 9pm: $21/hr
-                            //between 9pm and 4am: $15/hr
+                //between 5pm and 10pm: $12/hr
+                //between 10pm and 12am: $8/hr
+                //between 12am and 4am: $16/hr
 
 
-                            break;
-                        default:
-                            family.equals("");
-                            break;
+                break;
 
-                    }
+            case 3:
+                family.equals(("Family C"));
+
+                //Family C
+
+                //between 5pm and 9pm: $21/hr
+                //between 9pm and 4am: $15/hr
+
+
+                break;
+            default:
+                family.equals("");
+                break;
+
+        }
 
         return finalPay;
     }
