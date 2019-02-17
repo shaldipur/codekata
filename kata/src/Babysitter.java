@@ -42,10 +42,6 @@ public class Babysitter {
     {
         boolean numFamiliesBabysat = false;
 
-        // Empty family values represent families that are not being babysat for
-        // because the babysitter can only babysit for one family per night
-
-
         // Get count of the families
         // If the count is 1 then return true.  If zero or greater than one, then return false.
         if(familiesCollection.size() == 1)

@@ -40,7 +40,7 @@ public class Pay {
             // If the babysitter is getting paid for the full hours then proceed to calculate final pay
             if(payForFullHours)
             {
-              int finalPay =  j.calculateFinalPay(hours, startTime, endTime, family);
+              int finalPay =  j.calculateFinalPay(startTime, endTime, family);
 
               System.out.print("The final pay is $ " + Integer.toString(finalPay) + " for " + family + "." );
 
