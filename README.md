@@ -1,6 +1,6 @@
 # codekata
 
- This README is for the Babysitter code kata.	
+ This README is for a code kata.	
 
  Dependency Manager:	
 
