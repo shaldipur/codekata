@@ -3,6 +3,7 @@ import org.junit.Test;
 import static junit.framework.TestCase.assertEquals;
 import java.time.*;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 
 public class TestClass {
@@ -19,6 +20,14 @@ public class TestClass {
     String familyA = "Family A";
     String familyB = "Family B";
     String familyC = "Family C";
+
+    //Calculate the number of hours between the start time and end time
+    Duration duration = Duration.between(startTime,endTime);
+
+    long seconds = duration.getSeconds();
+
+    //Convert seconds to hours
+    long hours = TimeUnit.SECONDS.toHours(seconds);
 
 
     @Before
@@ -54,7 +63,7 @@ public class TestClass {
     @Test
     public void verifyPayForFullHoursReturnsTrue()
     {
-        assertEquals(true, j.verifyPayForFullHours(familyA));
+        assertEquals(true, j.verifyPayForFullHours(hours));
     }
 
 

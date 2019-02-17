@@ -23,12 +23,14 @@ public class Job
     }
 
 
-    public boolean verifyPayForFullHours(String family)
+    public boolean verifyPayForFullHours(long hours)
     {
         boolean payForFullHours = false;
 
-
-
+        // There is no remainder then set payForFullHours to true
+//        if(){
+//            payForFullHours = true;
+//        }
 
 
 

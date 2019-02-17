@@ -42,7 +42,7 @@ public class Pay {
                     long hours = j.calculateHours(startTime,endTime);
 
                     // Verify that babysitter gets paid for full hours (no fractional hours)
-                    payForFullHours = j.verifyPayForFullHours(family);
+                    payForFullHours = j.verifyPayForFullHours(hours);
 
                     // If the babysitter is getting paid for the full hours then proceed to calculate final pay
                     if(payForFullHours)
