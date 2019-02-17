@@ -98,7 +98,6 @@ public class Job
                         }
                     }
 
-                    //TODO: Break out into a function
                     // If the agreed upon hours are passed in then we need to filter down to the proper pay scales
                     if(agreedUponHours){
                         // $15 pay scale
@@ -110,8 +109,11 @@ public class Job
                             }
                         }
                         // $20 pay scale
-                        else if(){
-
+                        else if(hour.equals(LocalTime.of(23,00)) || hour.isAfter(LocalTime.of(23,00))){
+                            if(hour.isBefore(LocalTime.of(4,00)) || hour.equals(LocalTime.of(4,00)));
+                            {
+                                payHourCounterElevenThroughFour +=1;
+                            }
                         }
                     }
 
