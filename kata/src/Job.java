@@ -134,7 +134,7 @@ public class Job
                 // Between 5pm and 10pm: $12/hr
                 // Between 10pm and 12am: $8/hr
                 // Between 12am and 4am: $16/hr
-
+                //some changes
 
                 break;
 
