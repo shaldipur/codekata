@@ -6,6 +6,22 @@ import java.util.concurrent.TimeUnit;
 
 public class Job
 {
+    Hours hours = new Hours();
+
+    LocalTime fivePM = hours.getFivePM();
+    LocalTime sixPM = hours.getSixPM();
+    LocalTime sevenPM = hours.getSevenPM();
+    LocalTime eightPM = hours.getEightPM();
+    LocalTime ninePM = hours.getNinePM();
+    LocalTime tenPM = hours.getTenPM();
+    LocalTime elevenPM = hours.getElevenPM();
+    LocalTime twelveAM = hours.getTwelveAM();
+    LocalTime oneAM = hours.getOneAM();
+    LocalTime twoAM = hours.getTwoAM();
+    LocalTime threeAM = hours.getThreeAM();
+    LocalTime fourAM = hours.getFourAM();
+
+
 
     public double calculateHours(LocalTime startTime, LocalTime endTime)
     {
@@ -45,11 +61,10 @@ public class Job
         int finalPay = 0;
         int familyCase = 0;
 
-        int payRateFiveThroughTen = 15;
-        int payHourCounterFiveThroughTen = 0;
+        // Family A
+        int payFiveThroughTen = 15;
+        int payElevenThroughFour = 20;
 
-        int payRateElevenThroughFour = 20;
-        int payHourCounterElevenThroughFour = 0;
 
 
         boolean agreedUponHours = false;
@@ -68,28 +83,13 @@ public class Job
 
                 // Family A
 
-                //TODO: Break out into function
-                // Preload hours: Between 5pm and 11pm: $15/hr
+                familyPayHours = addFamilyPayHours(family);
 
-                familyPayHours.add(LocalTime.of(17,00));
-                familyPayHours.add(LocalTime.of(18,00));
-                familyPayHours.add(LocalTime.of(19,00));
-                familyPayHours.add(LocalTime.of(20,00));
-                familyPayHours.add(LocalTime.of(21,00));
-                familyPayHours.add(LocalTime.of(22,00));
 
-                // Preload hours: Between 11pm and 4am: $20/hr
-
-                familyPayHours.add(LocalTime.of(23,00));
-                familyPayHours.add(LocalTime.of(24,00));
-                familyPayHours.add(LocalTime.of(1,00));
-                familyPayHours.add(LocalTime.of(2,00));
-                familyPayHours.add(LocalTime.of(3,00));
-                familyPayHours.add(LocalTime.of(4,00));
-
+                //TODO: Function with for loop inside with familyPayHours as parameter
                 for(LocalTime hour : familyPayHours){
 
-                    //TODO: Break out into a function (create unit test)
+                    //TODO: Break out into a boolean function with hour as parameter (create unit test)
                     // Do the hours match the startTime and endTime that have been passed in?
                     // We don't want hours not agreed upon to be passed through (e.g. 13:00, 14:00, 15:00 etc.)
                     if(hour.equals(startTime) || hour.isAfter(startTime)){
@@ -98,43 +98,45 @@ public class Job
                         }
                     }
 
+                    //TODO: Break out into function and pass in agreedUponHours and family as parameters
                     // If the agreed upon hours are passed in then we need to filter down to the proper pay scales
                     if(agreedUponHours){
+
+                        //Family A
                         // $15 pay scale
                         if(hour.equals(LocalTime.of(17,00)) || hour.isAfter(LocalTime.of(17,00)))
                         {
                             if(hour.isBefore(LocalTime.of(22,00)) || hour.equals(LocalTime.of(22,00)))
                             {
-                                payHourCounterFiveThroughTen +=1;
+                                payFiveThroughTen +=1;
                             }
                         }
                         // $20 pay scale
                         else if(hour.equals(LocalTime.of(23,00)) || hour.isAfter(LocalTime.of(23,00))){
                             if(hour.isBefore(LocalTime.of(4,00)) || hour.equals(LocalTime.of(4,00)));
                             {
-                                payHourCounterElevenThroughFour +=1;
+                                payElevenThroughFour +=1;
                             }
                         }
                     }
 
                 }
 
-                int payFiveThroughTen = payHourCounterFiveThroughTen * payRateFiveThroughTen;
-
-                int payElevenThroughFour = payHourCounterElevenThroughFour * payRateElevenThroughFour;
 
                 finalPay = payFiveThroughTen + payElevenThroughFour;
 
-
                 break;
+
             case 2:
                 family.equals(("Family B"));
                 // Family B
 
-                // Between 5pm and 10pm: $12/hr
-                // Between 10pm and 12am: $8/hr
-                // Between 12am and 4am: $16/hr
-                //some changes
+                familyPayHours = addFamilyPayHours(family);
+
+
+
+
+
 
                 break;
 
@@ -143,8 +145,10 @@ public class Job
 
                 //Family C
 
-                // Between 5pm and 9pm: $21/hr
-                // Between 9pm and 4am: $15/hr
+                familyPayHours = addFamilyPayHours(family);
+
+
+
 
 
                 break;
@@ -155,6 +159,76 @@ public class Job
         }
 
         return finalPay;
+    }
+
+
+    public  ArrayList<LocalTime> addFamilyPayHours(String family)
+    {
+        ArrayList<LocalTime> familyPayHours = new ArrayList<LocalTime>();
+
+        if(family.equals("Family A")){
+
+            // Preload hours: Between 5pm and 11pm: $15/hr
+
+            familyPayHours.add(fivePM);
+            familyPayHours.add(sixPM);
+            familyPayHours.add(sevenPM);
+            familyPayHours.add(eightPM);
+            familyPayHours.add(ninePM);
+            familyPayHours.add(tenPM);
+
+            // Preload hours: Between 11pm and 4am: $20/hr
+
+            familyPayHours.add(elevenPM);
+            familyPayHours.add(twelveAM);
+            familyPayHours.add(oneAM);
+            familyPayHours.add(twoAM);
+            familyPayHours.add(threeAM);
+            familyPayHours.add(fourAM);
+
+        }
+        else if(family.equals("Family B"))
+        {
+            // Preload hours: Between 5pm and 10pm: $12/hr
+            familyPayHours.add(fivePM);
+            familyPayHours.add(sixPM);
+            familyPayHours.add(sevenPM);
+            familyPayHours.add(eightPM);
+            familyPayHours.add(ninePM);
+
+            // Preload hours: Between 10pm and 12am: $8/hr
+            familyPayHours.add(tenPM);
+            familyPayHours.add(elevenPM);
+
+            // Preload hours: Between 12am and 4am: $16/hr
+            familyPayHours.add(twelveAM);
+            familyPayHours.add(oneAM);
+            familyPayHours.add(twoAM);
+            familyPayHours.add(threeAM);
+            familyPayHours.add(fourAM);
+        }
+        else if(family.equals("Family C"))
+        {
+            // Between 5pm and 9pm: $21/hr
+            familyPayHours.add(fivePM);
+            familyPayHours.add(sixPM);
+            familyPayHours.add(sevenPM);
+            familyPayHours.add(eightPM);
+
+            // Between 9pm and 4am: $15/hr
+            familyPayHours.add(ninePM);
+            familyPayHours.add(tenPM);
+            familyPayHours.add(elevenPM);
+            familyPayHours.add(twelveAM);
+            familyPayHours.add(oneAM);
+            familyPayHours.add(twoAM);
+            familyPayHours.add(threeAM);
+            familyPayHours.add(fourAM);
+        }
+
+
+
+        return familyPayHours;
     }
 
 
