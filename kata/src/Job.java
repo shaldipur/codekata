@@ -21,6 +21,20 @@ public class Job
     LocalTime threeAM = hours.getThreeAM();
     LocalTime fourAM = hours.getFourAM();
 
+    // Family A
+    private int payFiveThroughTenFamA = 15;
+    private int payElevenThroughFour = 20;
+
+
+    // Family B
+    private int payFiveThroughTenFamB = 12;
+    private int payTenThroughTwelve = 8;
+    private int twelveThroughFour = 16;
+
+    // Family C
+    private int payFiveThroughNine = 21;
+    private int payNineThroughFour = 15;
+
 
 
     public double calculateHours(LocalTime startTime, LocalTime endTime)
@@ -61,13 +75,6 @@ public class Job
         int finalPay = 0;
         int familyCase = 0;
 
-        // Family A
-        int payFiveThroughTen = 15;
-        int payElevenThroughFour = 20;
-
-
-
-        boolean agreedUponHours = false;
 
         ArrayList<LocalTime> familyPayHours = new ArrayList<LocalTime>();
 
@@ -77,84 +84,61 @@ public class Job
         switch(familyCase){
 
             case 1:
+
+                // Family A
+
                 family.equals("Family A");
 
                 // Determine the amount paid by the family based on the time range
 
-                // Family A
-
                 familyPayHours = addFamilyPayHours(family);
 
+                // Determine the final pay
 
-                //TODO: Function with for loop inside with familyPayHours as parameter
-                for(LocalTime hour : familyPayHours){
+                finalPay = determineFinalPay(family, startTime, endTime, familyPayHours);
 
-                    //TODO: Break out into a boolean function with hour as parameter (create unit test)
-                    // Do the hours match the startTime and endTime that have been passed in?
-                    // We don't want hours not agreed upon to be passed through (e.g. 13:00, 14:00, 15:00 etc.)
-                    if(hour.equals(startTime) || hour.isAfter(startTime)){
-                        if(hour.isBefore(endTime) || hour.equals(endTime)){
-                            agreedUponHours = true;
-                        }
-                    }
-
-                    //TODO: Break out into function and pass in agreedUponHours and family as parameters
-                    // If the agreed upon hours are passed in then we need to filter down to the proper pay scales
-                    if(agreedUponHours){
-
-                        //Family A
-                        // $15 pay scale
-                        if(hour.equals(LocalTime.of(17,00)) || hour.isAfter(LocalTime.of(17,00)))
-                        {
-                            if(hour.isBefore(LocalTime.of(22,00)) || hour.equals(LocalTime.of(22,00)))
-                            {
-                                payFiveThroughTen +=1;
-                            }
-                        }
-                        // $20 pay scale
-                        else if(hour.equals(LocalTime.of(23,00)) || hour.isAfter(LocalTime.of(23,00))){
-                            if(hour.isBefore(LocalTime.of(4,00)) || hour.equals(LocalTime.of(4,00)));
-                            {
-                                payElevenThroughFour +=1;
-                            }
-                        }
-                    }
-
-                }
-
-
-                finalPay = payFiveThroughTen + payElevenThroughFour;
 
                 break;
 
             case 2:
-                family.equals(("Family B"));
+
                 // Family B
+
+                family.equals(("Family B"));
+
+                // Determine the amount paid by the family based on the time range
 
                 familyPayHours = addFamilyPayHours(family);
 
+                // Determine the final pay
 
-
+                finalPay = determineFinalPay(family, startTime, endTime, familyPayHours);
 
 
 
                 break;
 
             case 3:
-                family.equals(("Family C"));
 
                 //Family C
 
+
+                family.equals(("Family C"));
+
+                // Determine the amount paid by the family based on the time range
+
                 familyPayHours = addFamilyPayHours(family);
 
+                // Determine the final pay
 
-
-
+                finalPay = determineFinalPay(family, startTime, endTime, familyPayHours);
 
                 break;
+
             default:
                 family.equals("");
-                break;
+
+                System.out.print("Final pay could not be determined.");
 
         }
 
@@ -209,13 +193,13 @@ public class Job
         }
         else if(family.equals("Family C"))
         {
-            // Between 5pm and 9pm: $21/hr
+            // Preload hours: Between 5pm and 9pm: $21/hr
             familyPayHours.add(fivePM);
             familyPayHours.add(sixPM);
             familyPayHours.add(sevenPM);
             familyPayHours.add(eightPM);
 
-            // Between 9pm and 4am: $15/hr
+            // Preload hours: Between 9pm and 4am: $15/hr
             familyPayHours.add(ninePM);
             familyPayHours.add(tenPM);
             familyPayHours.add(elevenPM);
@@ -231,5 +215,86 @@ public class Job
         return familyPayHours;
     }
 
+
+    public int determineFinalPay(String family, LocalTime startTime, LocalTime endTime, ArrayList<LocalTime> familyPayHours){
+
+        boolean agreedUponHours = false;
+        int finalPay = 0;
+
+         for(LocalTime hour : familyPayHours){
+
+            agreedUponHours = verifyAgreedUponHours(startTime, endTime, hour);
+
+            // If the agreed upon hours are passed in then we need to filter down to the proper pay scales
+            if(agreedUponHours){
+
+                if(family.equals("Family A")){
+
+                    // $15 pay scale (Family A)
+                    if(hour.equals(fivePM) || hour.isAfter(fivePM))
+                    {
+                        if(hour.isBefore(tenPM) || hour.equals(tenPM))
+                        {
+                            payFiveThroughTenFamA +=1;
+                        }
+                    }
+                    // $20 pay scale
+                    else if(hour.equals(elevenPM) || hour.isAfter(elevenPM)){
+                        if(hour.isBefore(fourAM) || hour.equals(fourAM));
+                        {
+                            payElevenThroughFour +=1;
+                        }
+                    }
+
+                    finalPay = payFiveThroughTenFamA + payElevenThroughFour;
+
+                }
+                else if(family.equals("Family B"))
+                {
+                    // Between 5pm and 10pm: $12 pay scale
+                    if(hour.equals(fivePM) || hour.isAfter(fivePM))
+                    {
+                        if(hour.isBefore(ninePM) || hour.equals(ninePM)){
+                            payFiveThroughTenFamB +=1;
+                        }
+                    }
+//                    else if(){
+//                        if(){
+//
+//                        }
+//                    }
+
+                }
+                else if(family.equals("Family C"))
+                {
+
+                }
+
+            }
+
+        }
+
+
+        return finalPay;
+
+    }
+
+    //TODO: Create unit test for this function
+    public boolean verifyAgreedUponHours(LocalTime startTime, LocalTime endTime, LocalTime hour){
+
+        boolean agreedUponHours = false;
+
+        // Do the hours match the startTime and endTime that have been passed in?
+        // We don't want hours not agreed upon to be passed through (e.g. 13:00, 14:00, 15:00 etc.)
+
+        if(hour.equals(startTime) || hour.isAfter(startTime)){
+            if(hour.isBefore(endTime) || hour.equals(endTime)){
+                agreedUponHours = true;
+            }
+        }
+
+        return agreedUponHours;
+
+    }
 
 }
