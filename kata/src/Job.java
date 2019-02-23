@@ -22,14 +22,14 @@ public class Job
     LocalTime fourAM = hours.getFourAM();
 
     // Family A
-    private int payFiveThroughTenFamA = 15;
+    private int payFiveThroughEleven = 15;
     private int payElevenThroughFour = 20;
 
 
     // Family B
-    private int payFiveThroughTenFamB = 12;
+    private int payFiveThroughTen = 12;
     private int payTenThroughTwelve = 8;
-    private int twelveThroughFour = 16;
+    private int payTwelveThroughFour = 16;
 
     // Family C
     private int payFiveThroughNine = 21;
@@ -95,7 +95,7 @@ public class Job
 
                 // Determine the final pay
 
-                finalPay = determineFinalPay(family, startTime, endTime, familyPayHours);
+                finalPay = determineFinalPayFromPayScale(family, startTime, endTime, familyPayHours);
 
 
                 break;
@@ -112,7 +112,7 @@ public class Job
 
                 // Determine the final pay
 
-                finalPay = determineFinalPay(family, startTime, endTime, familyPayHours);
+                finalPay = determineFinalPayFromPayScale(family, startTime, endTime, familyPayHours);
 
 
 
@@ -131,7 +131,7 @@ public class Job
 
                 // Determine the final pay
 
-                finalPay = determineFinalPay(family, startTime, endTime, familyPayHours);
+                finalPay = determineFinalPayFromPayScale(family, startTime, endTime, familyPayHours);
 
                 break;
 
@@ -216,7 +216,7 @@ public class Job
     }
 
 
-    public int determineFinalPay(String family, LocalTime startTime, LocalTime endTime, ArrayList<LocalTime> familyPayHours){
+    public int determineFinalPayFromPayScale(String family, LocalTime startTime, LocalTime endTime, ArrayList<LocalTime> familyPayHours){
 
         boolean agreedUponHours = false;
         int finalPay = 0;
@@ -230,50 +230,73 @@ public class Job
 
                 if(family.equals("Family A")){
 
-                    // $15 pay scale (Family A)
+                    //Between 5pm and 11pm: $15/hr pay scale
                     if(hour.equals(fivePM) || hour.isAfter(fivePM))
                     {
-                        if(hour.isBefore(tenPM) || hour.equals(tenPM))
+                        if(hour.isBefore(elevenPM))
                         {
-                            payFiveThroughTenFamA +=1;
+                            payFiveThroughEleven +=1;
                         }
                     }
-                    // $20 pay scale
+                    //  Between 11pm and 4am: $20/hr pay scale
                     else if(hour.equals(elevenPM) || hour.isAfter(elevenPM)){
-                        if(hour.isBefore(fourAM) || hour.equals(fourAM));
+                        if(hour.isBefore(fourAM));
                         {
                             payElevenThroughFour +=1;
                         }
                     }
 
-                    finalPay = payFiveThroughTenFamA + payElevenThroughFour;
+                    finalPay = payFiveThroughEleven + payElevenThroughFour;
 
                 }
                 else if(family.equals("Family B"))
                 {
-                    // Between 5pm and 10pm: $12 pay scale
+                    // Between 5pm and 10pm: $12/hr pay scale
                     if(hour.equals(fivePM) || hour.isAfter(fivePM))
                     {
-                        if(hour.isBefore(ninePM) || hour.equals(ninePM)){
-                            payFiveThroughTenFamB +=1;
+                        if(hour.isBefore(tenPM)){
+                            payFiveThroughTen +=1;
                         }
                     }
-//                    else if(){
-//                        if(){
-//
-//                        }
-//                    }
+                    // Between 10pm and 12am: $8/hr pay scale
+                    else if(hour.equals(tenPM) || hour.isAfter(tenPM)){
+                        if(hour.isBefore(twelveAM)){
+                            payTenThroughTwelve +=1;
+                        }
+                    }
+                    // Between 12am and 4am: $16/hr pay scale
+                    else if(hour.equals(twelveAM) || hour.isAfter(twelveAM)){
+                        if(hour.isBefore(fourAM)){
+                            payTwelveThroughFour+=1;
+                        }
+                    }
 
+                    finalPay = payFiveThroughTen + payTenThroughTwelve + payTwelveThroughFour;
                 }
                 else if(family.equals("Family C"))
                 {
+                    //  Between 5pm and 9pm: $21/hr pay scale
+                    if(hour.equals(fivePM) || hour.isAfter(fivePM))
+                    {
+                        if(hour.isBefore(ninePM))
+                        {
+                                payFiveThroughNine +=1;
+                        }
+                    }
 
+                    //  Between 9pm and 4am: $15/hr pay scale
+                    else if(hour.equals(ninePM) || hour.isAfter(ninePM))
+                    {
+                        if(hour.isBefore(fourAM))
+                        {
+                            payNineThroughFour +=1;
+                        }
+                    }
+
+                    finalPay = payFiveThroughNine + payNineThroughFour;
                 }
-
             }
-
         }
-
 
         return finalPay;
 
