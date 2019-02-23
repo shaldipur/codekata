@@ -15,10 +15,12 @@ public class Execution {
 
         ArrayList<String> familiesCollection = new ArrayList<String>();
 
+        // Choose one at a time for successful completion
         String familyA = "Family A";
         String familyB = "Family B";
         String familyC = "Family C";
 
+        // Choose one at a time for successful completion
         familiesCollection.add(familyA);
 //        familiesCollection.add(familyB);
 //        familiesCollection.add(familyC);

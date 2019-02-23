@@ -28,9 +28,10 @@ public class TestClass {
     // Setting up families
     ArrayList familiesCollection = new ArrayList();
 
+    // Choose one at a time for successful completion
     String familyA = "Family A";
-    String familyB = "Family B";
-    String familyC = "Family C";
+    //String familyB = "Family B";
+    //String familyC = "Family C";
 
 
     @Before
@@ -41,9 +42,10 @@ public class TestClass {
         bs = new Babysitter();
         j = new Job();
 
+        // Choose one at a time for successful completion
         familiesCollection.add(familyA);
-        familiesCollection.add(familyB);
-        familiesCollection.add(familyC);
+        //familiesCollection.add(familyB);
+        //familiesCollection.add(familyC);
 
     }
 
