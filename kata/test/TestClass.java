@@ -12,22 +12,25 @@ public class TestClass {
     Babysitter bs;
     Job j;
 
+    // Setting up times
     LocalTime startTime = LocalTime.of(17,00);
     LocalTime endTime = LocalTime.of(4,00);
+    LocalTime hour = LocalTime.of(17,00);
 
+    // Calculate the number of hours between the start time and end time
+    Duration duration = Duration.between(startTime,endTime);
+
+    long seconds = duration.getSeconds();
+
+    // Convert seconds to hours
+    long hours = TimeUnit.SECONDS.toHours(seconds);
+
+    // Setting up families
     ArrayList familiesCollection = new ArrayList();
 
     String familyA = "Family A";
     String familyB = "Family B";
     String familyC = "Family C";
-
-    //Calculate the number of hours between the start time and end time
-    Duration duration = Duration.between(startTime,endTime);
-
-    long seconds = duration.getSeconds();
-
-    //Convert seconds to hours
-    long hours = TimeUnit.SECONDS.toHours(seconds);
 
 
     @Before
@@ -37,6 +40,10 @@ public class TestClass {
         pay = new Pay();
         bs = new Babysitter();
         j = new Job();
+
+        familiesCollection.add(familyA);
+        familiesCollection.add(familyB);
+        familiesCollection.add(familyC);
 
     }
 
@@ -51,13 +58,10 @@ public class TestClass {
     @Test
     public void verifyFamiliesBabySatReturnTrue()
     {
-        familiesCollection.add(familyA);
-        familiesCollection.add(familyB);
-        familiesCollection.add(familyC);
+
 
         assertEquals(true, bs.verifyNumFamiliesBabysat(familiesCollection));
     }
-
 
 
     @Test
@@ -67,6 +71,11 @@ public class TestClass {
     }
 
 
+    @Test
+    public void verifyAgreedUponHours()
+    {
+        assertEquals(true, j.verifyAgreedUponHours(startTime, endTime, hour));
+    }
 
 
 
