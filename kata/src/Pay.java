@@ -32,6 +32,9 @@ public class Pay {
             String family = familiesCollection.get(0);
 
             // Calculate time difference between start time and end time
+
+            // Determining the hours worked ties into seeing if the pay is for full hours
+            // instead of fractional hours
             double hours = j.calculateHours(startTime,endTime);
 
             // Verify that babysitter gets paid for full hours (no fractional hours)

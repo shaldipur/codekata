@@ -26,7 +26,7 @@ public class Hours {
         ninePM = LocalTime.of(21,00);
         tenPM = LocalTime.of(22,00);
         elevenPM = LocalTime.of(23,00);
-        twelveAM = LocalTime.of(24,00);
+        twelveAM = LocalTime.of(0,00);
         oneAM = LocalTime.of(1,00);
         twoAM = LocalTime.of(2,00);
         threeAM = LocalTime.of(3,00);

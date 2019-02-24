@@ -8,6 +8,8 @@ public class Job
 {
     Hours hours = new Hours();
 
+    ArrayList<LocalTime> familyPayHours = new ArrayList<LocalTime>();
+
     LocalTime fivePM = hours.getFivePM();
     LocalTime sixPM = hours.getSixPM();
     LocalTime sevenPM = hours.getSevenPM();
@@ -73,22 +75,15 @@ public class Job
     public int calculateFinalPay(LocalTime startTime, LocalTime endTime, String family)
     {
         int finalPay = 0;
-        int familyCase = 0;
-
-
-        ArrayList<LocalTime> familyPayHours = new ArrayList<LocalTime>();
 
         //Determine which family it is (A, B, or C)
 
+        switch(family){
 
-        switch(familyCase){
-
-            case 1:
+            case "Family A":
 
                 // Family A
 
-                family.equals("Family A");
-
                 // Determine the amount paid by the family based on the time range
 
                 familyPayHours = addFamilyPayHours(family);
@@ -100,12 +95,10 @@ public class Job
 
                 break;
 
-            case 2:
+            case "Family B":
 
                 // Family B
 
-                family.equals(("Family B"));
-
                 // Determine the amount paid by the family based on the time range
 
                 familyPayHours = addFamilyPayHours(family);
@@ -118,12 +111,10 @@ public class Job
 
                 break;
 
-            case 3:
+            case "Family C":
 
                 //Family C
 
-
-                family.equals(("Family C"));
 
                 // Determine the amount paid by the family based on the time range
 
@@ -136,7 +127,6 @@ public class Job
                 break;
 
             default:
-                family.equals("");
 
                 System.out.print("Final pay could not be determined.");
 
@@ -218,7 +208,7 @@ public class Job
 
     public int determineFinalPayFromPayScale(String family, LocalTime startTime, LocalTime endTime, ArrayList<LocalTime> familyPayHours){
 
-        boolean agreedUponHours = false;
+        boolean agreedUponHours;
         int finalPay = 0;
 
          for(LocalTime hour : familyPayHours){
@@ -229,6 +219,8 @@ public class Job
             if(agreedUponHours){
 
                 if(family.equals("Family A")){
+
+                    //TODO: Trick this to say that pm is before am
 
                     //Between 5pm and 11pm: $15/hr pay scale
                     if(hour.equals(fivePM) || hour.isAfter(fivePM))
@@ -302,7 +294,6 @@ public class Job
 
     }
 
-    //TODO: Create unit test for this function
     public boolean verifyAgreedUponHours(LocalTime startTime, LocalTime endTime, LocalTime hour){
 
         boolean agreedUponHours = false;
@@ -310,8 +301,9 @@ public class Job
         // Do the hours match the startTime and endTime that have been passed in?
         // We don't want hours not agreed upon to be passed through (e.g. 13:00, 14:00, 15:00 etc.)
 
+        //TODO: Trick this to say that pm is before am
         if(hour.equals(startTime) || hour.isAfter(startTime)){
-            if(hour.isBefore(endTime) || hour.equals(endTime)){
+            if(hour.isBefore(endTime)){
                 agreedUponHours = true;
             }
         }
