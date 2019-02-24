@@ -1,8 +1,5 @@
-import org.assertj.core.internal.bytebuddy.asm.Advice;
-
 import java.time.*;
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 
 public class Job
 {
@@ -10,9 +7,9 @@ public class Job
 
     ArrayList<LocalTime> familyPayHours = new ArrayList<LocalTime>();
 
-    int startInt;
-    int endInt;
-    int hourInt;
+    double startDouble;
+    double endDouble;
+    double hourDouble;
 
 
     LocalTime fivePM = hours.getFivePM();
@@ -27,6 +24,8 @@ public class Job
     LocalTime twoAM = hours.getTwoAM();
     LocalTime threeAM = hours.getThreeAM();
     LocalTime fourAM = hours.getFourAM();
+
+    ArrayList<Integer> payList = new ArrayList<Integer>();
 
     // Family A
     private int payFiveThroughEleven = 15;
@@ -232,18 +231,20 @@ public class Job
                     {
                         if(hour.isBefore(elevenPM))
                         {
-                            payFiveThroughEleven +=1;
+                            payList.add(payFiveThroughEleven);
                         }
                     }
                     //  Between 11pm and 4am: $20/hr pay scale
                     else if(hour.equals(elevenPM) || hour.isAfter(elevenPM)){
                         if(hour.isBefore(fourAM));
                         {
-                            payElevenThroughFour +=1;
+                            payList.add(payElevenThroughFour);
                         }
                     }
 
-                    finalPay = payFiveThroughEleven + payElevenThroughFour;
+                    for (int i: payList) {
+                        finalPay += i;
+                    }
 
                 }
                 else if(family.equals("Family B"))
@@ -306,77 +307,80 @@ public class Job
         // Do the hours match the startTime and endTime that have been passed in?
         // We don't want hours not agreed upon to be passed through (e.g. 13:00, 14:00, 15:00 etc.)
 
+        // Time is linear, so am will always before pm.
+        // We need to measure an event happening in a specific point and this goes from pm to am.
+        // We need to convert from time to double (because we are also accounting for fractional hours)
 
-        /*Trick this to say that pm is before am for hours worked.
-        //We want this:
-
-        //17 - 12 = 5
-        //4 + 12 = 16
-
-        //To trick do this example:
-
-        // Is hour passed in equal to start time?
-        // 5 = 5 = true
-
-        // Or is the hour passed in greater than start time?
-        // 6 > 5 = true
-
-        // If the above is true then is the hour passed in less than the end time?
-        // 5 < 16 = true
-        // 6 < 16 = true
-        */
-
-        //TODO: Convert to function?
         LocalTime midNight = LocalTime.of(0, 00);
-
-       //TODO: What if fractional is passed? EX: 17:20?
 
         // Each startTime hour after 0 hr, subtract 12
         // Each startTime hour before  0 hr, add 12
         if(startTime.isAfter(midNight)){
-            startInt = Integer.parseInt(startTime.toString().replace(":00", ""));
-            startInt = startInt - 12;
-        }
 
+            startDouble = parseDouble(startTime);
+
+            startDouble = startDouble - 12.0;
+        }
         else if(startTime.isBefore(midNight)){
-            startInt = Integer.parseInt(startTime.toString().replace(":00", ""));
-            startInt = startInt + 12;
+
+            startDouble = parseDouble(startTime);
+
+            startDouble = startDouble + 12.0;
         }
 
         // Each endTime hour before 0 hr, subtract 12
         // Each endTime hour after  0 hr, add 12
         if(endTime.isBefore(midNight)){
-            endInt = Integer.parseInt(endTime.toString().replace(":00", ""));
-            endInt = endInt - 12;
+
+            endDouble = parseDouble(endTime);
+
+            endDouble = endDouble - 12.0;
 
         }
         else if(endTime.isAfter(midNight)){
-            endInt = Integer.parseInt(endTime.toString().replace(":00", ""));
-            endInt = endInt + 12;
+
+            endDouble = parseDouble(endTime);
+
+            endDouble = endDouble + 12.0;
         }
 
         //Each hour passed in before 0 hr, subtract 12
         //Each hour passed in after  0 hr, add 12
         if(hour.isAfter(midNight)){
-            hourInt = Integer.parseInt(hour.toString().replace(":00", ""));
-            hourInt = hourInt - 12;
+
+            hourDouble = parseDouble(hour);
+
+            hourDouble = hourDouble - 12.0;
 
         }
         else if(hour.isBefore(midNight))
         {
-            hourInt = Integer.parseInt(hour.toString().replace(":00", ""));
-            hourInt = hourInt + 12;
-        }
-        //TODO: Convert to function?
 
-        if(hourInt >= startInt){
-            if(hourInt < endInt){
+            hourDouble = parseDouble(hour);
+
+            hourDouble = hourDouble + 12.0;
+        }
+
+
+        if(hourDouble >= startDouble){
+            if(hourDouble < endDouble){
                 agreedUponHours = true;
             }
         }
 
         return agreedUponHours;
 
+    }
+
+    public double parseDouble(LocalTime time)
+    {
+        double timeDouble;
+
+        String minutesAndSeparator = time.toString().substring(2,5);
+        String minutes = time.toString().substring(3,5);
+        timeDouble = Double.parseDouble(time.toString().replace(minutesAndSeparator, "." + minutes));
+
+        return timeDouble;
     }
 
 }
