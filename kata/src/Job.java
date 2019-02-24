@@ -220,7 +220,7 @@ public class Job
 
                 if(family.equals("Family A")){
 
-                    //TODO: Trick this to say that pm is before am
+                    //TODO: Trick this to say that pm is before am...when in fact am is before pm
 
                     //Between 5pm and 11pm: $15/hr pay scale
                     if(hour.equals(fivePM) || hour.isAfter(fivePM))
@@ -301,7 +301,46 @@ public class Job
         // Do the hours match the startTime and endTime that have been passed in?
         // We don't want hours not agreed upon to be passed through (e.g. 13:00, 14:00, 15:00 etc.)
 
-        //TODO: Trick this to say that pm is before am
+        //TODO: Trick this to say that pm is before am...when in fact am is before pm
+        // 17 is not before 4 because 4 is is before 17
+        // 17 is not before 16 because 16 is before 17
+
+        //TODO: Convert to function?
+
+        int st;
+        LocalTime startTimeConverted;
+
+        LocalTime midNight = LocalTime.of(0, 00);
+
+        // Each startTime hour before 0 hr, subtract 12
+        if(startTime.isBefore(midNight)){
+
+            //Convert LocalTime to int
+            st = Integer.parseInt(startTime.toString());
+
+            startTimeConverted = LocalTime.of(st - 12,00);
+        }
+        // Each startTime hour after  0 hr, add 12
+        else if(startTime.isAfter(midNight)){
+
+            //Convert LocalTime to int
+            st = Integer.parseInt(startTime.toString());
+            startTimeConverted = LocalTime.of(st + 12, 00);
+        }
+
+        //
+
+        // Each endTime hour before 0 hr, subtract 12
+        // Each endTime hour after  0 hr, add 12
+
+
+        //Each hour passed in:
+        //hour before 0 hr, subtract 12
+        //hour after  0 hr, add 12
+
+
+        //TODO: Convert to function?
+
         if(hour.equals(startTime) || hour.isAfter(startTime)){
             if(hour.isBefore(endTime)){
                 agreedUponHours = true;
