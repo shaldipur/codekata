@@ -10,6 +10,11 @@ public class Job
 
     ArrayList<LocalTime> familyPayHours = new ArrayList<LocalTime>();
 
+    int startInt;
+    int endInt;
+    int hourInt;
+
+
     LocalTime fivePM = hours.getFivePM();
     LocalTime sixPM = hours.getSixPM();
     LocalTime sevenPM = hours.getSevenPM();
@@ -301,48 +306,86 @@ public class Job
         // Do the hours match the startTime and endTime that have been passed in?
         // We don't want hours not agreed upon to be passed through (e.g. 13:00, 14:00, 15:00 etc.)
 
-        //TODO: Trick this to say that pm is before am...when in fact am is before pm
-        // 17 is not before 4 because 4 is is before 17
-        // 17 is not before 16 because 16 is before 17
+
+        /*Trick this to say that pm is before am for hours worked.
+        //We want this:
+
+        //17 - 12 = 5
+        //4 + 12 = 16
+
+        //To trick do this example:
+
+        // Is hour passed in equal to start time?
+        // 5 = 5 = true
+
+        // Or is the hour passed in greater than start time?
+        // 6 > 5 = true
+
+        // If the above is true then is the hour passed in less than the end time?
+        // 5 < 16 = true
+        // 6 < 16 = true
+        */
 
         //TODO: Convert to function?
 
-        int st;
-        LocalTime startTimeConverted;
-
         LocalTime midNight = LocalTime.of(0, 00);
 
+       //TODO: What if fractional is passed? EX: 17:20?
+
         // Each startTime hour before 0 hr, subtract 12
-        if(startTime.isBefore(midNight)){
+        if(startTime.isAfter(midNight)){
 
             //Convert LocalTime to int
-            st = Integer.parseInt(startTime.toString());
+            startInt = Integer.parseInt(startTime.toString().replace(":00", ""));
+            startInt = startInt - 12;
 
-            startTimeConverted = LocalTime.of(st - 12,00);
+
         }
         // Each startTime hour after  0 hr, add 12
-        else if(startTime.isAfter(midNight)){
+        else if(startTime.isBefore(midNight)){
 
             //Convert LocalTime to int
-            st = Integer.parseInt(startTime.toString());
-            startTimeConverted = LocalTime.of(st + 12, 00);
+            startInt = Integer.parseInt(startTime.toString().replace(":00", ""));
+            startInt = startInt + 12;
+
         }
 
         //
 
         // Each endTime hour before 0 hr, subtract 12
         // Each endTime hour after  0 hr, add 12
+        if(endTime.isBefore(midNight)){
+        //Convert LocalTime to int
+            endInt = Integer.parseInt(endTime.toString().replace(":00", ""));
+            endInt = endInt - 12;
 
+        }
+        else if(endTime.isAfter(midNight)){
+        //Convert LocalTime to int
+            endInt = Integer.parseInt(endTime.toString().replace(":00", ""));
+            endInt = endInt + 12;
+        }
 
-        //Each hour passed in:
-        //hour before 0 hr, subtract 12
-        //hour after  0 hr, add 12
+        //Each hour passed in before 0 hr, subtract 12
+        //Each hour passed in after  0 hr, add 12
+
+        if(hour.isAfter(midNight)){
+            hourInt = Integer.parseInt(hour.toString().replace(":00", ""));
+            hourInt = hourInt - 12;
+
+        }
+        else if(hour.isBefore(midNight))
+        {
+            hourInt = Integer.parseInt(hour.toString().replace(":00", ""));
+            hourInt = hourInt + 12;
+
+        }
 
 
         //TODO: Convert to function?
 
-        if(hour.equals(startTime) || hour.isAfter(startTime)){
-            if(hour.isBefore(endTime)){
+        if(hourInt >= startInt){
+            if(hourInt < endInt){
                 agreedUponHours = true;
             }
         }
