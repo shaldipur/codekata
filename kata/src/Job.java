@@ -327,48 +327,36 @@ public class Job
         */
 
         //TODO: Convert to function?
-
         LocalTime midNight = LocalTime.of(0, 00);
 
        //TODO: What if fractional is passed? EX: 17:20?
 
-        // Each startTime hour before 0 hr, subtract 12
+        // Each startTime hour after 0 hr, subtract 12
+        // Each startTime hour before  0 hr, add 12
         if(startTime.isAfter(midNight)){
-
-            //Convert LocalTime to int
             startInt = Integer.parseInt(startTime.toString().replace(":00", ""));
             startInt = startInt - 12;
-
-
         }
-        // Each startTime hour after  0 hr, add 12
-        else if(startTime.isBefore(midNight)){
 
-            //Convert LocalTime to int
+        else if(startTime.isBefore(midNight)){
             startInt = Integer.parseInt(startTime.toString().replace(":00", ""));
             startInt = startInt + 12;
-
         }
-
-        //
 
         // Each endTime hour before 0 hr, subtract 12
         // Each endTime hour after  0 hr, add 12
         if(endTime.isBefore(midNight)){
-        //Convert LocalTime to int
             endInt = Integer.parseInt(endTime.toString().replace(":00", ""));
             endInt = endInt - 12;
 
         }
         else if(endTime.isAfter(midNight)){
-        //Convert LocalTime to int
             endInt = Integer.parseInt(endTime.toString().replace(":00", ""));
             endInt = endInt + 12;
         }
 
         //Each hour passed in before 0 hr, subtract 12
         //Each hour passed in after  0 hr, add 12
-
         if(hour.isAfter(midNight)){
             hourInt = Integer.parseInt(hour.toString().replace(":00", ""));
             hourInt = hourInt - 12;
@@ -378,10 +366,7 @@ public class Job
         {
             hourInt = Integer.parseInt(hour.toString().replace(":00", ""));
             hourInt = hourInt + 12;
-
         }
-
-
         //TODO: Convert to function?
 
         if(hourInt >= startInt){
