@@ -3,6 +3,7 @@ import java.time.LocalTime;
 
 public class Hours {
 
+    //TODO: Change to double
     private LocalTime fivePM;
     private LocalTime sixPM;
     private LocalTime sevenPM;
@@ -18,6 +19,7 @@ public class Hours {
 
 
     // Set the variables to their values in the constructor
+    //TODO: Change to double
     Hours(){
         fivePM = LocalTime.of(17,00);
         sixPM = LocalTime.of(18,00);

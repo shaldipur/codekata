@@ -1,3 +1,5 @@
+import org.assertj.core.internal.bytebuddy.asm.Advice;
+
 import java.time.*;
 import java.util.ArrayList;
 
@@ -26,6 +28,7 @@ public class Job
     LocalTime fourAM = hours.getFourAM();
 
     ArrayList<Integer> payList = new ArrayList<Integer>();
+
 
     // Family A
     private int payFiveThroughEleven = 15;
@@ -217,83 +220,84 @@ public class Job
 
          for(LocalTime hour : familyPayHours){
 
+             //TODO: midnight fails on agreedUponHours
             agreedUponHours = verifyAgreedUponHours(startTime, endTime, hour);
 
             // If the agreed upon hours are passed in then we need to filter down to the proper pay scales
             if(agreedUponHours){
 
+                hourDouble = hoursMidnight(hour, twelveAM);
+
                 if(family.equals("Family A")){
 
-                    //TODO: Trick this to say that pm is before am...when in fact am is before pm
-
                     //Between 5pm and 11pm: $15/hr pay scale
-                    if(hour.equals(fivePM) || hour.isAfter(fivePM))
+
+                    if(hourDouble >= 5.0)
                     {
-                        if(hour.isBefore(elevenPM))
+                        if(hourDouble < 11.0)
                         {
                             payList.add(payFiveThroughEleven);
                         }
                     }
+
                     //  Between 11pm and 4am: $20/hr pay scale
-                    else if(hour.equals(elevenPM) || hour.isAfter(elevenPM)){
-                        if(hour.isBefore(fourAM));
+                    if(hourDouble >= 11.0){
+                        if(hourDouble < 16.0);
                         {
                             payList.add(payElevenThroughFour);
                         }
-                    }
-
-                    for (int i: payList) {
-                        finalPay += i;
                     }
 
                 }
                 else if(family.equals("Family B"))
                 {
                     // Between 5pm and 10pm: $12/hr pay scale
-                    if(hour.equals(fivePM) || hour.isAfter(fivePM))
+                    if(hourDouble >= 5.0)
                     {
-                        if(hour.isBefore(tenPM)){
-                            payFiveThroughTen +=1;
+                        if(hourDouble < 10.0){
+                            payList.add(payFiveThroughTen);
                         }
                     }
                     // Between 10pm and 12am: $8/hr pay scale
-                    else if(hour.equals(tenPM) || hour.isAfter(tenPM)){
-                        if(hour.isBefore(twelveAM)){
-                            payTenThroughTwelve +=1;
+                    if(hourDouble >= 10.0){
+                        if(hourDouble < 12.0){
+                            payList.add(payTenThroughTwelve);
                         }
                     }
                     // Between 12am and 4am: $16/hr pay scale
-                    else if(hour.equals(twelveAM) || hour.isAfter(twelveAM)){
-                        if(hour.isBefore(fourAM)){
-                            payTwelveThroughFour+=1;
+                    if(hourDouble >= 12.0){
+                        if(hourDouble < 16.0){
+                            payList.add(payTwelveThroughFour);
                         }
                     }
 
-                    finalPay = payFiveThroughTen + payTenThroughTwelve + payTwelveThroughFour;
                 }
                 else if(family.equals("Family C"))
                 {
                     //  Between 5pm and 9pm: $21/hr pay scale
-                    if(hour.equals(fivePM) || hour.isAfter(fivePM))
+                    if(hourDouble >= 5.0)
                     {
-                        if(hour.isBefore(ninePM))
+                        if(hourDouble < 9.0)
                         {
-                                payFiveThroughNine +=1;
+                            payList.add(payFiveThroughNine);
                         }
                     }
 
                     //  Between 9pm and 4am: $15/hr pay scale
-                    else if(hour.equals(ninePM) || hour.isAfter(ninePM))
+                    if(hourDouble >= 9.0)
                     {
-                        if(hour.isBefore(fourAM))
+                        if(hourDouble < 16.0)
                         {
-                            payNineThroughFour +=1;
+                            payList.add(payNineThroughFour);
                         }
                     }
 
-                    finalPay = payFiveThroughNine + payNineThroughFour;
                 }
             }
+        }
+
+        for (int i: payList) {
+            finalPay += i;
         }
 
         return finalPay;
@@ -311,33 +315,34 @@ public class Job
         // We need to measure an event happening in a specific point and this goes from pm to am.
         // We need to convert from time to double (because we are also accounting for fractional hours)
 
-        LocalTime midNight = LocalTime.of(0, 00);
+
 
         // Each startTime hour after 0 hr, subtract 12
         // Each startTime hour before  0 hr, add 12
-        if(startTime.isAfter(midNight)){
+        if(startTime.isAfter(twelveAM)){
 
             startDouble = parseDouble(startTime);
 
             startDouble = startDouble - 12.0;
         }
-        else if(startTime.isBefore(midNight)){
+        else if(startTime.isBefore(twelveAM)){
 
             startDouble = parseDouble(startTime);
 
             startDouble = startDouble + 12.0;
         }
 
+
         // Each endTime hour before 0 hr, subtract 12
         // Each endTime hour after  0 hr, add 12
-        if(endTime.isBefore(midNight)){
+        if(endTime.isBefore(twelveAM)){
 
             endDouble = parseDouble(endTime);
 
             endDouble = endDouble - 12.0;
 
         }
-        else if(endTime.isAfter(midNight)){
+        else if(endTime.isAfter(twelveAM)){
 
             endDouble = parseDouble(endTime);
 
@@ -346,6 +351,24 @@ public class Job
 
         //Each hour passed in before 0 hr, subtract 12
         //Each hour passed in after  0 hr, add 12
+
+        hourDouble = hoursMidnight(hour, twelveAM);
+
+        if(hourDouble >= startDouble){
+            if(hourDouble <= endDouble){
+                agreedUponHours = true;
+            }
+        }
+
+        return agreedUponHours;
+
+    }
+
+    public double hoursMidnight(LocalTime hour, LocalTime midNight)
+    {
+
+        double hourDouble = 0.0;
+
         if(hour.isAfter(midNight)){
 
             hourDouble = parseDouble(hour);
@@ -353,7 +376,7 @@ public class Job
             hourDouble = hourDouble - 12.0;
 
         }
-        else if(hour.isBefore(midNight))
+        else if(hour.isBefore(midNight) || hour.equals(midNight))
         {
 
             hourDouble = parseDouble(hour);
@@ -361,14 +384,17 @@ public class Job
             hourDouble = hourDouble + 12.0;
         }
 
+        else if(hour.isAfter(midNight))
+        {
+            if(hour.equals(oneAM))  //TODO: left off here
+            {
+                hourDouble = parseDouble(hour);
 
-        if(hourDouble >= startDouble){
-            if(hourDouble < endDouble){
-                agreedUponHours = true;
+                hourDouble = hourDouble + 12.0;
             }
         }
 
-        return agreedUponHours;
+        return hourDouble;
 
     }
 
