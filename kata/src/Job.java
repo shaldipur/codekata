@@ -27,7 +27,22 @@ public class Job
     LocalTime threeAM = hours.getThreeAM();
     LocalTime fourAM = hours.getFourAM();
 
-    ArrayList<Integer> payList = new ArrayList<Integer>();
+
+
+    //Family A
+    ArrayList<Integer> payListFamilyAFiveThroughEleven = new ArrayList<Integer>();
+    ArrayList<Integer> payListFamilyAElevenThroughFour = new ArrayList<Integer>();
+
+    //Family B
+    ArrayList<Integer> payListFamilyBFiveThroughTen = new ArrayList<Integer>();
+    ArrayList<Integer> payListFamilyBTenThroughTwelve = new ArrayList<Integer>();
+    ArrayList<Integer> payListFamilyBFiveTwelveThroughFour = new ArrayList<Integer>();
+
+    //Family C
+    ArrayList<Integer> payListFamilyCFiveThroughNine = new ArrayList<Integer>();
+    ArrayList<Integer> payListFamilyCNineThroughFour = new ArrayList<Integer>();
+
+    ArrayList<Integer> finalPayList = new ArrayList<Integer>();
 
 
     // Family A
@@ -220,7 +235,6 @@ public class Job
 
          for(LocalTime hour : familyPayHours){
 
-             //TODO: midnight fails on agreedUponHours
             agreedUponHours = verifyAgreedUponHours(startTime, endTime, hour);
 
             // If the agreed upon hours are passed in then we need to filter down to the proper pay scales
@@ -236,7 +250,8 @@ public class Job
                     {
                         if(hourDouble < 11.0)
                         {
-                            payList.add(payFiveThroughEleven);
+                            payListFamilyAFiveThroughEleven.add(payFiveThroughEleven);
+
                         }
                     }
 
@@ -244,7 +259,7 @@ public class Job
                     if(hourDouble >= 11.0){
                         if(hourDouble < 16.0);
                         {
-                            payList.add(payElevenThroughFour);
+                            payListFamilyAElevenThroughFour.add(payElevenThroughFour);
                         }
                     }
 
@@ -255,19 +270,19 @@ public class Job
                     if(hourDouble >= 5.0)
                     {
                         if(hourDouble < 10.0){
-                            payList.add(payFiveThroughTen);
+                            payListFamilyBFiveThroughTen.add(payFiveThroughTen);
                         }
                     }
                     // Between 10pm and 12am: $8/hr pay scale
                     if(hourDouble >= 10.0){
                         if(hourDouble < 12.0){
-                            payList.add(payTenThroughTwelve);
+                            payListFamilyBTenThroughTwelve.add(payTenThroughTwelve);
                         }
                     }
                     // Between 12am and 4am: $16/hr pay scale
                     if(hourDouble >= 12.0){
                         if(hourDouble < 16.0){
-                            payList.add(payTwelveThroughFour);
+                            payListFamilyBFiveTwelveThroughFour.add(payTwelveThroughFour);
                         }
                     }
 
@@ -279,7 +294,7 @@ public class Job
                     {
                         if(hourDouble < 9.0)
                         {
-                            payList.add(payFiveThroughNine);
+                            payListFamilyCFiveThroughNine.add(payFiveThroughNine);
                         }
                     }
 
@@ -288,7 +303,7 @@ public class Job
                     {
                         if(hourDouble < 16.0)
                         {
-                            payList.add(payNineThroughFour);
+                            payListFamilyCNineThroughFour.add(payNineThroughFour);
                         }
                     }
 
@@ -296,7 +311,94 @@ public class Job
             }
         }
 
-        for (int i: payList) {
+        // Deduct one value from each pay list because the intervals between hours are what the babysitter
+        // is being paid for.
+
+        //Family A
+
+        if(!payListFamilyAFiveThroughEleven.isEmpty())
+        {
+            payListFamilyAFiveThroughEleven.remove(1);
+
+            for (int i:payListFamilyAFiveThroughEleven)
+            {
+                finalPayList.add(i);
+            }
+
+        }
+
+        if(!payListFamilyAElevenThroughFour.isEmpty())
+        {
+            payListFamilyAElevenThroughFour.remove(1);
+
+            for (int i:payListFamilyAElevenThroughFour)
+            {
+                finalPayList.add(i);
+            }
+
+        }
+
+        //Family B
+
+        if(!payListFamilyBFiveThroughTen.isEmpty())
+        {
+            payListFamilyBFiveThroughTen.remove(1);
+
+            for (int i:payListFamilyBFiveThroughTen)
+            {
+                finalPayList.add(i);
+            }
+
+        }
+
+        if(!payListFamilyBTenThroughTwelve.isEmpty())
+        {
+            payListFamilyBTenThroughTwelve.remove(1);
+
+            for (int i:payListFamilyBTenThroughTwelve)
+            {
+                finalPayList.add(i);
+            }
+
+
+        }
+
+        if(!payListFamilyBFiveTwelveThroughFour.isEmpty())
+        {
+            payListFamilyBFiveTwelveThroughFour.remove(1);
+
+            for (int i:payListFamilyBFiveTwelveThroughFour)
+            {
+                finalPayList.add(i);
+            }
+
+        }
+
+        //Family C
+
+        if(!payListFamilyCFiveThroughNine.isEmpty())
+        {
+            payListFamilyCFiveThroughNine.remove(1);
+
+            for (int i:payListFamilyCFiveThroughNine)
+            {
+                finalPayList.add(i);
+            }
+
+        }
+
+        if(!payListFamilyCNineThroughFour.isEmpty())
+        {
+            payListFamilyCNineThroughFour.remove(1);
+
+            for (int i:payListFamilyCNineThroughFour)
+            {
+                finalPayList.add(i);
+            }
+
+        }
+
+        for (int i: finalPayList) {
             finalPay += i;
         }
 
@@ -314,11 +416,12 @@ public class Job
         // Time is linear, so am will always before pm.
         // We need to measure an event happening in a specific point and this goes from pm to am.
         // We need to convert from time to double (because we are also accounting for fractional hours)
-
+        // If hours are fractional the process can't continue because babysitter is only being paid for full hours.
 
 
         // Each startTime hour after 0 hr, subtract 12
         // Each startTime hour before  0 hr, add 12
+
         if(startTime.isAfter(twelveAM)){
 
             startDouble = parseDouble(startTime);
@@ -371,12 +474,17 @@ public class Job
 
         if(hour.isAfter(midNight)){
 
-            hourDouble = parseDouble(hour);
+            if (hour.equals(fivePM) || hour.equals (sixPM) || hour.equals(sevenPM) || hour.equals(eightPM)
+             || hour.equals(ninePM) || hour.equals(tenPM) || hour.equals(elevenPM))
+            {
+                hourDouble = parseDouble(hour);
 
-            hourDouble = hourDouble - 12.0;
+                hourDouble = hourDouble - 12.0;
+            }
 
         }
-        else if(hour.isBefore(midNight) || hour.equals(midNight))
+
+        if(hour.isBefore(midNight) || hour.equals(midNight))
         {
 
             hourDouble = parseDouble(hour);
@@ -384,9 +492,9 @@ public class Job
             hourDouble = hourDouble + 12.0;
         }
 
-        else if(hour.isAfter(midNight))
+        if(hour.isAfter(midNight))
         {
-            if(hour.equals(oneAM))  //TODO: left off here
+            if(hour.equals(oneAM) || hour.equals(twoAM) || hour.equals(threeAM) || hour.equals(fourAM))
             {
                 hourDouble = parseDouble(hour);
 

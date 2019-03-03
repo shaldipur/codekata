@@ -3,7 +3,7 @@ import java.time.LocalTime;
 
 public class Hours {
 
-    //TODO: Change to double
+
     private LocalTime fivePM;
     private LocalTime sixPM;
     private LocalTime sevenPM;
@@ -19,7 +19,7 @@ public class Hours {
 
 
     // Set the variables to their values in the constructor
-    //TODO: Change to double
+
     Hours(){
         fivePM = LocalTime.of(17,00);
         sixPM = LocalTime.of(18,00);
@@ -29,10 +29,10 @@ public class Hours {
         tenPM = LocalTime.of(22,00);
         elevenPM = LocalTime.of(23,00);
         twelveAM = LocalTime.of(0,00);
-        oneAM = LocalTime.of(1,00);
-        twoAM = LocalTime.of(2,00);
-        threeAM = LocalTime.of(3,00);
-        fourAM = LocalTime.of(4,00);
+        oneAM = LocalTime.of(01,00);
+        twoAM = LocalTime.of(02,00);
+        threeAM = LocalTime.of(03,00);
+        fourAM = LocalTime.of(04,00);
     }
 
     // Use get accessor methods to get the values

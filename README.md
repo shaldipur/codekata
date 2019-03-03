@@ -10,7 +10,7 @@
 
  JUnit 5 is what is being used for unit testing.
 
-# Change up these instructions to be more exact
+
  Instructions:
 
  To test the code all the way through and get a final pay amount:

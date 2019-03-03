@@ -52,6 +52,4 @@ public class Babysitter {
         return numFamiliesBabysat;
     }
 
-
-
 }
